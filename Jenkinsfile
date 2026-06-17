@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'madhu58/secure-mobile-os-ui'
-        IMAGE_TAG = 'latest'
+        IMAGE_NAME = "madhu58/grapheneos-build"
+        IMAGE_TAG = "latest"
+        CONTAINER_NAME = "grapheneos-container"
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -15,39 +17,67 @@ pipeline {
 
         stage('Check Files') {
             steps {
-                bat 'dir'
+                sh '''
+                    echo "Current Directory:"
+                    pwd
+
+                    echo "Files:"
+                    ls -la
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
+                sh '''
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                '''
             }
         }
 
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login \
+                        -u "$DOCKER_USER" \
+                        --password-stdin
+                    '''
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
+                sh '''
+                    docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                '''
             }
         }
 
         stage('Remove Old Container') {
             steps {
-                bat 'docker rm -f secure-mobile-container || exit 0'
+                sh '''
+                    docker stop ${CONTAINER_NAME} || true
+                    docker rm ${CONTAINER_NAME} || true
+                '''
             }
         }
 
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 8080:80 --name secure-mobile-container %IMAGE_NAME%:%IMAGE_TAG%'
+                sh '''
+                    docker run -d \
+                    --name ${CONTAINER_NAME} \
+                    -p 8080:8080 \
+                    ${IMAGE_NAME}:${IMAGE_TAG}
+                '''
             }
         }
     }
@@ -56,9 +86,11 @@ pipeline {
         always {
             echo 'Pipeline finished'
         }
+
         success {
-            echo 'Build and deployment successful'
+            echo 'Pipeline succeeded'
         }
+
         failure {
             echo 'Pipeline failed'
         }
