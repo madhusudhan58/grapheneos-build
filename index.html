@@ -1,60 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure Mobile OS UI</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrapheneOS UI</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="phone">
 
-    <div class="status-bar">
-      <span>9:41</span>
-      <span>📶 WiFi 🔋100%</span>
-    </div>
+<div class="phone">
 
+    <!-- Lock Screen -->
     <div id="lockScreen" class="screen active">
-      <h1>Secure OS</h1>
-      <p>Enter your password</p>
-      <input type="password" id="passwordInput" placeholder="Enter password" />
-      <button onclick="unlockDevice()">Unlock</button>
-      <p id="message"></p>
+
+        <h2>🔒 Phone Locked</h2>
+
+        <input type="password"
+        id="password"
+        placeholder="Enter Password">
+
+        <button onclick="unlockPhone()">
+            Unlock
+        </button>
+
+        <div class="fingerprint">
+            <button onclick="fingerprintLogin()">
+                👆 Fingerprint Unlock
+            </button>
+        </div>
+
+        <button onclick="faceUnlock()">
+            📷 Face Unlock
+        </button>
+
     </div>
 
+
+    <!-- Home Screen -->
     <div id="homeScreen" class="screen">
-      <h2>Home Screen</h2>
-      <div class="apps">
-        <button onclick="showScreen('settingsScreen')">⚙ Settings</button>
-        <button onclick="showScreen('securityScreen')">🔒 Security</button>
-        <button onclick="lockDevice()">🔐 Lock</button>
-      </div>
+
+        <h2>🏠 Home Screen</h2>
+
+        <!-- Battery -->
+
+        <div class="battery">
+
+            🔋 <span id="battery">100</span>%
+
+        </div>
+
+        <!-- Theme -->
+
+        <button onclick="toggleTheme()">
+
+            🌙 Theme
+
+        </button>
+
+
+        <!-- Notifications -->
+
+        <div id="notifications">
+
+            <h3>Notifications</h3>
+
+            <p>WiFi Connected</p>
+
+            <p>New Security Update</p>
+
+        </div>
+
+
+        <!-- Apps -->
+
+        <div class="apps">
+
+            <button>📞</button>
+
+            <button>📧</button>
+
+            <button>🌐</button>
+
+            <button>⚙️</button>
+
+            <button>🔒</button>
+
+            <button>📷</button>
+
+        </div>
+
+
+        <!-- Change Password -->
+
+        <h3>Change Password</h3>
+
+        <input type="password"
+        id="newPassword"
+        placeholder="New Password">
+
+        <button onclick="changePassword()">
+
+            Save
+
+        </button>
+
+
+        <!-- WiFi -->
+
+        <h3>WiFi</h3>
+
+        <select>
+
+            <option>Home WiFi</option>
+
+            <option>Office WiFi</option>
+
+            <option>Guest WiFi</option>
+
+        </select>
+
+
+        <!-- Theme Settings -->
+
+        <h3>Theme Settings</h3>
+
+        <select onchange="changeTheme(this.value)">
+
+            <option>Dark</option>
+
+            <option>Light</option>
+
+        </select>
+
+
+        <!-- Privacy Dashboard -->
+
+        <h3>Privacy Dashboard</h3>
+
+        <p>Camera Access : 2 apps</p>
+
+        <p>Microphone : 1 app</p>
+
+        <p>Location : 3 apps</p>
+
+
+        <!-- App Permissions -->
+
+        <h3>App Permissions</h3>
+
+        <p>Camera : Allowed</p>
+
+        <p>Microphone : Denied</p>
+
+        <p>Location : Allowed</p>
+
+
+        <!-- Secure Folder -->
+
+        <button onclick="openSecureFolder()">
+
+            📁 Secure Folder
+
+        </button>
+
+
+        <!-- Emergency SOS -->
+
+        <button onclick="emergencySOS()">
+
+            🚨 SOS
+
+        </button>
+
+
     </div>
 
-    <div id="settingsScreen" class="screen">
-      <h2>Settings</h2>
-      <p>Normal Password: <b>1234</b></p>
-      <p>Duress Password: <b>9999</b></p>
-      <button onclick="showScreen('homeScreen')">⬅ Back</button>
-    </div>
+</div>
 
-    <div id="securityScreen" class="screen">
-      <h2>Security Dashboard</h2>
-      <p>Privacy Protection: Enabled</p>
-      <p>Sandbox Apps: Active</p>
-      <p>Duress Password Demo: Enabled</p>
-      <button onclick="showScreen('homeScreen')">⬅ Back</button>
-    </div>
+<script src="script.js"></script>
 
-    <div id="wipeScreen" class="screen">
-      <h2>Emergency Action Triggered</h2>
-      <p>Duress password accepted.</p>
-      <p>Demo data cleared. Returning to setup state.</p>
-      <button onclick="resetDemo()">Restart Demo</button>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

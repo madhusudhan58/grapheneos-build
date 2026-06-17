@@ -1,35 +1,52 @@
-const normalPassword = "1234";
-const duressPassword = "9999";
+let normalPassword = "1234";
 
-function showScreen(screenId) {
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-  document.getElementById(screenId).classList.add("active");
+function unlockPhone(){
+
+let pass=document.getElementById("password").value;
+
+if(pass===normalPassword){
+
+showScreen("homeScreen");
+
 }
 
-function unlockDevice() {
-  const input = document.getElementById("passwordInput").value;
-  const message = document.getElementById("message");
+else{
 
-  if (input === normalPassword) {
-    message.textContent = "";
-    showScreen("homeScreen");
-  } else if (input === duressPassword) {
-    message.textContent = "";
-    localStorage.clear();
-    showScreen("wipeScreen");
-  } else {
-    message.textContent = "Wrong password";
-  }
+alert("Wrong Password");
 
-  document.getElementById("passwordInput").value = "";
 }
 
-function lockDevice() {
-  showScreen("lockScreen");
 }
 
-function resetDemo() {
-  showScreen("lockScreen");
+
+function fingerprintLogin(){
+
+document.getElementById("lockScreen").classList.remove("active");
+
+document.getElementById("homeScreen").classList.add("active");
+
+alert("Fingerprint Authenticated");
+
+}
+
+
+function faceUnlock(){
+
+showScreen("homeScreen");
+
+alert("Face recognized");
+
+}
+
+
+function showScreen(id){
+
+document.querySelectorAll(".screen").forEach(screen=>{
+
+screen.classList.remove("active");
+
+});
+
+document.getElementById(id).classList.add("active");
+
 }

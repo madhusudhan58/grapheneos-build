@@ -1,77 +1,149 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+body{
+
+margin:0;
+
+padding:0;
+
+font-family:Arial,sans-serif;
+
+background:#020617;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+color:white;
+
 }
 
-.phone {
-  width: 320px;
-  height: 640px;
-  background: #111827;
-  border: 8px solid #222;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
-  color: white;
-  position: relative;
+.phone{
+
+width:360px;
+
+height:740px;
+
+background:#0f172a;
+
+border-radius:35px;
+
+box-shadow:0 0 35px rgba(0,0,0,0.7);
+
+padding:20px;
+
+overflow:auto;
+
 }
 
-.status-bar {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: #1f2937;
-  font-size: 14px;
+.screen{
+
+display:none;
+
 }
 
-.screen {
-  display: none;
-  padding: 30px 20px;
-  text-align: center;
+.screen.active{
+
+display:block;
+
 }
 
-.screen.active {
-  display: block;
+button{
+
+width:100%;
+
+padding:14px;
+
+margin-top:10px;
+
+border:none;
+
+border-radius:18px;
+
+font-weight:bold;
+
+background:#1e293b;
+
+color:white;
+
+cursor:pointer;
+
 }
 
-input {
-  width: 90%;
-  padding: 12px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  font-size: 16px;
+button:hover{
+
+transform:scale(1.03);
+
 }
 
-button {
-  margin-top: 15px;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-  font-size: 15px;
+input,select{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+border:none;
+
+border-radius:12px;
+
 }
 
-button:hover {
-  background: #1d4ed8;
+.apps{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
 }
 
-.apps {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
+.apps button{
+
+font-size:30px;
+
+height:80px;
+
 }
 
-#message {
-  margin-top: 10px;
-  color: #fca5a5;
+#notifications{
+
+background:#1f2937;
+
+padding:15px;
+
+border-radius:15px;
+
+margin-top:15px;
+
+}
+
+.battery{
+
+font-size:20px;
+
+margin-bottom:15px;
+
+}
+
+.light-mode{
+
+background:#ffffff;
+
+color:black;
+
+}
+
+.dark-mode{
+
+background:#111827;
+
+color:white;
+
 }
